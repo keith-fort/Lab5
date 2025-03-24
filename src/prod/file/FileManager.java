@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import prod.baseClasses.Coordinates;
 import prod.baseClasses.Location;
+import prod.baseClasses.LocationFrom;
+import prod.baseClasses.LocationTo;
 import prod.baseClasses.Route;
 
 public class FileManager {												
@@ -105,15 +107,15 @@ public class FileManager {
                 Integer fromX = Integer.parseInt(fields[5]);
                 int fromY = Integer.parseInt(fields[6]);
                 String fromName = fields[7];
-                Integer toX = Integer.parseInt(fields[8]);
-                int toY = Integer.parseInt(fields[9]);
+                Float toX = Float.parseFloat(fields[8]);
+                long toY = Long.parseLong(fields[9]);
                 String toName = fields[10];
                 Integer distance = Integer.parseInt(fields[11]);
 
                 // Создаем объекты Coordinates, Location и Route
                 Coordinates coordinates = new Coordinates(coordinatesX, coordinatesY);
-                Location from = new Location(fromX, fromY, fromName);
-                Location to = new Location(toX, toY, toName);
+                LocationFrom from = new LocationFrom(fromX, fromY, fromName);
+                LocationTo to = new LocationTo(toX, toY, toName);
                 Date creationDate = new Date(creationDateMillis);
 
                 Route route = new Route(id, name, coordinates, creationDate, from, to, distance);
@@ -132,7 +134,7 @@ public class FileManager {
 	public void loadToCSV(LinkedList<Route> collection) {
 		
 		// Записываем данные в CSV-файл с использованием FileOutputStream
-        try (FileOutputStream fos = new FileOutputStream("routes.csv")) {
+        try (FileOutputStream fos = new FileOutputStream("/Users/ivanmarkov/Desktop/Учеба/Прога/Eclipse2021-12_ws/Lab5_reserved/src/prod/text")) {	//"routes.csv"
             // Заголовок CSV
             String header = "id,name,coordinates_x,coordinates_y,creationDate,from_x,from_y,from_name,to_x,to_y,to_name,distance\n";
             fos.write(header.getBytes());

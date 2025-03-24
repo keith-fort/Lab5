@@ -19,11 +19,11 @@ public class CommandManager {								//invoker
         commands.put("clear", new ClearCommand(collectManager));
         commands.put("save", new SaveCommand(collectManager));
         commands.put("exit", new ExitCommand(collectManager));
+        commands.put("add", new AddCommand(collectManager));
         
 		/*
         
-        commands.put("remove_by_id", new RemoveByIdCommand(collectManager));
-        commands.put("add", new AddCommand(collectManager));
+        commands.put("remove_by_id", new RemoveByIdCommand(collectManager));        
         commands.put("update", new UpdateIdCommand(collectManager));        
         commands.put("execute_script", new ExecuteScriptCommand(collectManager));
         commands.put("head", new HeadCommand(collectManager));

@@ -2,6 +2,7 @@ package prod.baseClasses;
 
 import java.util.Date;
 
+import prod.collection.IdGenerator;
 import prod.utils.Time;
 
 public class Route {
@@ -10,21 +11,17 @@ public class Route {
     private String name; 						//Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; 			//Поле не может быть null
     private java.util.Date creationDate; 		//Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Location from; 					//Поле не может быть null
-    private Location to; 						//Поле не может быть null
+    private LocationFrom from; 						//Поле не может быть null
+    private LocationTo to; 						//Поле не может быть null
     private Integer distance; 					//Поле не может быть null, Значение поля должно быть больше 1
-	
-/*   public Route(String id, String name, String x1, String y1, String creationDate, String x2, String y2, String name1, String x3, String y3, String name2, String distance) {		//name1 - может быть пустой
-    	this.id = Long.valueOf(id);
-    	this.name = name;
-    	this.coordinates = new Coordinates(x1, y1); 
-    	this.creationDate = new Date();
-    	this.from = new LocationFrom(x2, y2, name1);
-    	this.to = new LocationTo(x3, y3, name2);
-    	this.distance = Integer.valueOf(distance);
-    } */
+    
+    private IdGenerator generator = new IdGenerator();
 
-    public Route(Long id, String name, Coordinates coordinates, Date creationDate, Location from, Location to, Integer distance) {
+
+    //Класс, коллекцией экземпляров которого управляет программа, должен реализовывать сортировку по умолчанию.
+    
+    public Route(Long id, String name, Coordinates coordinates, Date creationDate, LocationFrom from, LocationTo to, Integer distance) {
+//добавить проверку на допустимые значение в конструкторе
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
@@ -34,13 +31,33 @@ public class Route {
         this.distance = distance;
     }
     
+    public Route(String name, Coordinates coordinates, LocationFrom from, LocationTo to, Integer distance) {
+    	//добавить проверку на допустимые значение в конструкторе
+    	this.id = generator.generateId();
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = new Date();
+        this.from = from;
+        this.to = to;
+        this.distance = distance;
+    }
+    
     public Long getId() { return id; }			//Геттеры
     public String getName() { return name; }
     public Coordinates getCoordinates() { return coordinates; }
     public Date getCreationDate() { return creationDate; }
-    public Location getFrom() { return from; }
-    public Location getTo() { return to; }
+    public LocationFrom getFrom() { return from; }
+    public LocationTo getTo() { return to; }
     public Integer getDistance() { return distance; }
+    
+    
+    /**
+     * Устанавливает идентификатор дракона.
+     * @param id Идентификатор дракона.
+     */
+    public void setId(long id) {				//Сеттеры
+        this.id = id;
+    }
 
     @Override
     public String toString() {

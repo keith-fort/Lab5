@@ -7,6 +7,8 @@ import prod.baseClasses.Route;
 import prod.commands.Command;
 import prod.commands.CommandManager;
 import prod.console.ConsoleManager;
+import prod.console.RouteManager;
+import prod.console.Validator;
 import prod.file.FileManager;
 
 public class CollectionManager {								//receiver
@@ -14,6 +16,8 @@ public class CollectionManager {								//receiver
 		
 	LinkedList<Route> collection = new LinkedList<Route>();
 	ConsoleManager consoleManager = new ConsoleManager();
+	RouteManager routeManager = new RouteManager(consoleManager);
+	Validator validator = new Validator();
 	
 	private CommandManager commandManager;
 	private FileManager fileManager;
@@ -37,6 +41,10 @@ public class CollectionManager {								//receiver
 		return commandManager;
 	}
 	
+	public RouteManager getRouteManager() {
+		return routeManager;	
+	}
+	
 	
 	public void show() {
         if (!collection.isEmpty()) {
@@ -57,7 +65,7 @@ public class CollectionManager {								//receiver
 	}
 		
 	public void info() {
-		consoleManager.printLine("Тип хранимых данных в коллекции: Dragon\n");
+		consoleManager.printLine("Тип хранимых данных в коллекции: Route\n");
 		consoleManager.printLine("Дата и время инициализации: " + creationDate + "\n");
 		consoleManager.printLine("Колличество элементов в коллеции: " + collection.size() + "\n");
     }
@@ -68,10 +76,47 @@ public class CollectionManager {								//receiver
 	}
 	
 	public void save() {
+		consoleManager.printLine("Коллекция сохранена в файл.\n");
 		fileManager.loadToCSV(collection);
+		
 	}
 	
 	public void exit() {
 		System.exit(0);
 	}
+	
+	public void add(Route route) {
+		
+		boolean inCollection = false;
+//		System.out.println("you are here");
+        for (Route routeTemp : collection) {
+            if (routeTemp.equals(route)) {
+                inCollection = true;
+                break;
+            }
+        }
+//      System.out.println("you are here");
+        if (inCollection) {
+        	consoleManager.printLine("Этот маршрут уже есть в коллекции.\n");
+        } else {
+//        	System.out.println("you are here");
+            if (validator.getValid(route) != null){
+                collection.add(route);
+//                consoleManager.printLine("Маршрут успешно добавлен.\n");
+                System.out.println(collection);
+            } else {
+            	consoleManager.printLine("Параметры маршрута не верны.\n");
+            }
+            consoleManager.printLine("Маршрут успешно добавлен.\n");
+        }
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
 }

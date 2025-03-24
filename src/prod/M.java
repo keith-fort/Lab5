@@ -9,7 +9,7 @@ public class M {
 
 	public static void main(String[] args) {
 		
-		
+//		String link = "/Users/ivanmarkov/Desktop/Учеба/Прога/Eclipse2021-12_ws/Lab5_reserved/src/prod/text"; 
 		
         CollectionManager collectionManager = new CollectionManager();			//создание менеджера коллекции
         ConsoleManager consoleManager = new ConsoleManager();					//создание менеджера консоли
@@ -24,15 +24,18 @@ public class M {
         
         System.out.println(collectionManager.getCollection());
         
-        fileManager.loadToCSV(collectionManager.getCollection());
+//        fileManager.loadToCSV(collectionManager.getCollection());
         
         for (;;){
         	commandManager.executeCommand();
         }
-
         
 	}
 
 }
 
-//добавить переменную окружения
+//добавить переменную окружения (и на гелиосе)
+//добавить javadoc классов
+//добавить mvn/gradle
+//Класс, коллекцией экземпляров которого управляет программа, должен реализовывать сортировку по умолчанию.
+//Подтянуть на гелиос
