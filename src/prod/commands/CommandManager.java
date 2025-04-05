@@ -12,26 +12,30 @@ public class CommandManager {								//invoker
 	public CommandManager(CollectionManager collectManager, ConsoleManager consoleManager) {
 		
 		this.consoleManager = consoleManager;
-
+		
+		commands.put("help", new HelpCommand(collectManager));
+		commands.put("info", new InfoCommand(collectManager));
         commands.put("show", new ShowCommand(collectManager));
-        commands.put("help", new HelpCommand(collectManager));
-        commands.put("info", new InfoCommand(collectManager));
-        commands.put("clear", new ClearCommand(collectManager));
-        commands.put("save", new SaveCommand(collectManager));
-        commands.put("exit", new ExitCommand(collectManager));
+         
         commands.put("add", new AddCommand(collectManager));
         
-		/*
+        commands.put("insert_at", new InsertAtIndexCommand(collectManager));
         
-        commands.put("remove_by_id", new RemoveByIdCommand(collectManager));        
-        commands.put("update", new UpdateIdCommand(collectManager));        
+        commands.put("remove_at", new RemoveAtIndexCommand(collectManager));
+        commands.put("update", new UpdateByIdCommand(collectManager));
+        commands.put("remove_by_id", new RemoveByIdCommand(collectManager));
+        commands.put("save", new SaveCommand(collectManager));
+        commands.put("clear", new ClearCommand(collectManager));
+        commands.put("exit", new ExitCommand(collectManager));
+		/*
+                       
         commands.put("execute_script", new ExecuteScriptCommand(collectManager));
-        commands.put("head", new HeadCommand(collectManager));
-        commands.put("add_if_min", new AddIfMinCommand(collectManager));
-        commands.put("remove_lower", new RemoveLowerCommand(collectManager));
-        commands.put("sum_of_age", new SumOfAgeCommand(collectManager));
-        commands.put("filter_contains_name", new FilterContainsNameCommand(collectManager));
+        
+        
+        commands.put("reorder", new ReorderCommand(collectManager));
+        commands.put("sum_of_distance", new SumOfDistanceCommand(collectManager));
         commands.put("filter_starts_with_name", new FilterStartsWithNameCommand(collectManager));
+        commands.put("print_field_descending_distance", new PrintFieldDescendingDistanceCommand(collectManager));
         
 		*/
                 

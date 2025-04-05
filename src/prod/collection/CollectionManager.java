@@ -1,6 +1,7 @@
 package prod.collection;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import prod.baseClasses.Route;
@@ -88,35 +89,113 @@ public class CollectionManager {								//receiver
 	public void add(Route route) {
 		
 		boolean inCollection = false;
-//		System.out.println("you are here");
         for (Route routeTemp : collection) {
             if (routeTemp.equals(route)) {
                 inCollection = true;
                 break;
             }
         }
-//      System.out.println("you are here");
+
         if (inCollection) {
         	consoleManager.printLine("Этот маршрут уже есть в коллекции.\n");
         } else {
-//        	System.out.println("you are here");
             if (validator.getValid(route) != null){
                 collection.add(route);
 //                consoleManager.printLine("Маршрут успешно добавлен.\n");
-                System.out.println(collection);
+
+                consoleManager.printLine("Маршрут успешно добавлен.\n");
             } else {
             	consoleManager.printLine("Параметры маршрута не верны.\n");
             }
-            consoleManager.printLine("Маршрут успешно добавлен.\n");
+//            consoleManager.printLine("Маршрут успешно добавлен.\n");
         }
 		
 	}
 
+	public void remove_at(int index) {
+		if (index < 0) {
+			consoleManager.printLine("Индекс должен быть неотрицательным");
+		}
+		else if (index >= collection.size()) {
+			consoleManager.printLine("В массиве нет элемента такого индекса");
+		}
+		else {
+			collection.remove(index);
+			consoleManager.printLine("Объект по индексу " + index + " удален. \n");
+		}
+	}
 	
+	public void insert_at(int index) {
+		
+		if (index < 0) {
+			consoleManager.printLine("Индекс должен быть неотрицательным");
+		}
+		else if (index > collection.size()+1) {
+			consoleManager.printLine("Индекс больше максимально допустимого");
+		}
+		else {
+			Route route = routeManager.setRoute();
+			collection.add(route);
+			consoleManager.printLine("Объект добавлен в ячейку с индексом " + index + ".\n");
+		}
+		
+	}
+ 	
+	/**
+     * Обновляет маршрут по ID. Заменяет старые данные новыми после валидации.
+     * @param routeId ID маршрута для обновления
+     * @param route Новые данные дракона
+     */
 	
+    public void updateById(Long routeId) {
+        boolean inCollection = false;
+        Iterator<Route> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            Route routeToRemove = iterator.next();
+            
+            if (routeToRemove.getId().equals(routeId)) {
+                iterator.remove();
+                
+                Route route = routeManager.setRoute();
+                
+                route.setId(routeId);
+                if (validator.getValid(route) != null) {
+                    collection.add(route);
+                } else {
+                	consoleManager.printLine("Параметры маршрута не верны.\n");
+                }
+                inCollection = true;
+                break;
+            }
+        }
+        if (inCollection) {
+        	consoleManager.printLine("Данные маршрута успешно обновлены.\n");
+        } else {
+        	consoleManager.printLine("Маршрута с ID " + routeId + " нет в коллекции.\n");
+        }
+    }
 	
-	
-	
+    public void removeById(Long routeId) {
+    	
+    	boolean del = false;
+        Iterator<Route> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            Route routeToRemove = iterator.next();
+            
+            if (routeToRemove.getId().equals(routeId)) {
+                iterator.remove();
+                consoleManager.printLine("Маршрут успешно удален.\n"); 
+                del = true;
+                break;
+                
+            }
+        }
+        if (del == false) {
+        	consoleManager.printLine("Маршрута с ID " + routeId + " нет в коллекции.\n");
+        }
+           	
+    }
+    
 	
 	
 }
